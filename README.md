@@ -181,8 +181,44 @@ curl -X POST \
 }'
 ```
 
+## Consumindo mensagem via HTTP Post ao kafka
 
+1. <b>Registre um consumidor (Aplicacacao1) Kafka</b>
 
+```
+$ curl -X POST http://localhost:8080/consumers/consumidores \
+  -H 'content-type: application/vnd.kafka.v2+json' \
+  -d '{
+    "name": "aplicacao1",
+    "format": "json",
+    "auto.offset.reset": "earliest",
+    "enable.auto.commit": false
+  }'
+```
+
+2. será retonardo a base_uri que deverá ser utilizado a seguir para <b>subscrição a um ou mais tópicos</b>
+```
+$ curl -X POST http://localhost:8080/consumers/consumidores/instances/aplicacao1/subscription \
+  -H 'content-type: application/vnd.kafka.v2+json' \
+  -d '{
+    "topics": [
+        "topicosA"
+    ]
+}'
+```
+
+3. consuma as mensagens via HTTP GET
+
+```
+curl -X GET http://localhost:8080/consumers/consumidores/instances/aplicacao1/records \
+  -H 'accept: application/vnd.kafka.json.v2+json'
+```
+<br><br>
+
+### Referências
+https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengoverview.htm
+https://kafka.apache.org/quickstart
+https://strimzi.io/
 
 
 
