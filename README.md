@@ -132,3 +132,57 @@ Será aberto o shell do producer com indicativo <b>(>)</b> na console. Cada mens
 ```
 $ k exec -ti  my-cluster-kafka-0 -- bin/kafka-console-consumer.sh --bootstrap-server $KAFKA_CLUSTER_NAME-kafka-bootstrap:9092 --topic topicosA --from-beginning
 ```
+<br><br>
+
+# Produzir mensagem via HTTP Post ao kafka
+
+1. <b>Crie o arquivo bridge.yaml com o conteúdo abaixo descrito</b>
+
+```
+apiVersion: kafka.strimzi.io/v1alpha1
+kind: KafkaBridge
+metadata:
+  name: my-bridge
+spec:
+  replicas: 1
+  bootstrapServers: my-cluster-kafka-bootstrap:9092
+  http:
+    port: 8080
+```
+
+2. <b>Crie os recursos (services) no kubernetes</b>
+```
+$ k create -f bridge.yaml
+```
+<br>
+Você pode verificar o serviço criado my-bridge-bridge-service no namespace default.<br>
+
+3. <b>Faça um port-forward do serviço my-bridge-bridge-service de tipo ClusterIP</b>
+```
+$ k port-forward svc/my-bridge-bridge-service 8080:8080
+```
+
+4. <b>Envie a mensagem via POST ao topicosA criado</b>
+```
+curl -X POST \
+  http://localhost:8080/topics/topicosA \
+  -H 'content-type: application/vnd.kafka.json.v2+json' \
+  -d '{
+    "records": [
+        {
+            "key": "ampl",
+            "value": "fender"
+        },
+        {
+            "key": "ampl",
+            "value": "marshall"
+        }
+    ]
+}'
+```
+
+
+
+
+
+
