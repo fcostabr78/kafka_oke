@@ -125,7 +125,7 @@ $ k exec -ti  my-cluster-kafka-0  -- bin/kafka-topics.sh --list --bootstrap-serv
 $ k exec -ti  my-cluster-kafka-0  -- bin/kafka-console-producer.sh --broker-list $KAFKA_CLUSTER_NAME-kafka-bootstrap:9092 --topic topicosA
 ```
 
-Será aberto o shell do producer com indicativo <b>(>)</b> na console. Cada mensagem registrada é ingressada por linha<br><br>
+Será aberto o shell do producer com indicativo <b>(>)</b> na console. Cada mensagem registrada é ingressada por linha. Para sair do producer, Ctrl+C<br><br>
  
 
 <b> Consumir mensagem produzidas anteriormente</b> 
