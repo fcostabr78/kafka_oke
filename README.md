@@ -216,9 +216,9 @@ curl -X GET http://localhost:8080/consumers/consumidores/instances/aplicacao1/re
 <br><br>
 
 ### Referências
-https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengoverview.htm
-https://kafka.apache.org/quickstart
-https://strimzi.io/
+https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengoverview.htm<br>
+https://kafka.apache.org/quickstart<br>
+https://strimzi.io/<br>
 
 
 
